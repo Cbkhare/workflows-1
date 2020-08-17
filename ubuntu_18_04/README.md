@@ -164,13 +164,13 @@ chmod +x packet-save2image
 #6. Download Dockerfile
 wget https://raw.githubusercontent.com/packethost/packet-images/ubuntu_18_04-base/x86_64/Dockerfile
 #7. Download Image:
-./get-ubuntu-image 16.04 x86_64 .
+./get-ubuntu-image 18.04 x86_64 .
 #8. Build:
-docker build -t custom-ubuntu-16 .
+docker build -t custom-ubuntu-18 .
 #9. Save
-docker save custom-ubuntu-16 > custom-ubuntu-16.tar
+docker save custom-ubuntu-18 > custom-ubuntu-18.tar
 #10. Package:
-./packet-save2image < custom-ubuntu-16.tar > image.tar.gz
+./packet-save2image < custom-ubuntu-18.tar > image.tar.gz
 ```
 
 ### Register the hardware
