@@ -1,0 +1,97 @@
+{
+  "id": "0eba0bf8-3772-4b4a-ab9f-6ebe93b90a94",
+  "metadata": {
+    "facility": {
+      "facility_code": "onprem",
+      "plan_slug": "t1.small.x86",
+      "plan_version_slug": ""
+    },
+    "instance": {
+      "crypted_root_password": "$6$xyz$/pdZy4hazXmqu1t0TACitLlKZPD4bFyRUw6ycXiOTdf4kcnkmpgmtg9zUpEE8rG9KtOWwX7kp1Gl96NCGbDk60",
+      "operating_system_version": {
+        "distro": "debian",
+        "os_slug": "debian_9",
+        "version": "9"
+      },
+      "storage": {
+        "disks": [
+          {
+            "device": "/dev/sda",
+            "partitions": [
+              {
+                "label": "BIOS",
+                "number": 1,
+                "size": 4096
+              },
+              {
+                "label": "SWAP",
+                "number": 2,
+                "size": 3993600
+              },
+              {
+                "label": "ROOT",
+                "number": 3,
+                "size": 15993600
+              }
+            ],
+            "wipe_table": true
+          }
+        ],
+        "filesystems": [
+          {
+            "mount": {
+              "create": {
+                "options": ["-L", "ROOT"]
+              },
+              "device": "/dev/sda3",
+              "format": "ext4",
+              "point": "/"
+            }
+          },
+          {
+            "mount": {
+              "create": {
+                "options": ["-L", "SWAP"]
+              },
+              "device": "/dev/sda2",
+              "format": "swap",
+              "point": "none"
+            }
+          }
+        ]
+      }
+    },
+    "manufacturer": {
+      "id": "",
+      "slug": ""
+    },
+    "state": "provisioning"
+  },
+  "network": {
+    "interfaces": [
+      {
+        "dhcp": {
+          "arch": "x86_64",
+          "hostname": "server001",
+          "ip": {
+            "address": "192.168.1.5",
+            "gateway": "192.168.1.1",
+            "netmask": "255.255.255.248"
+          },
+          "lease_time": 86400,
+          "mac": "08:00:27:00:00:01",
+          "uefi": false
+        },
+        "netboot": {
+          "allow_pxe": true,
+          "allow_workflow": true,
+          "osie": {
+            "base_url": "",
+            "initrd": "",
+            "kernel": "vmlinuz-x86_64"
+          }
+        }
+      }
+    ]
+  }
+}
