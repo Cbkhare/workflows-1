@@ -1,0 +1,39 @@
+version: "0.1"
+name: centos-install
+global_timeout: 1800
+tasks:
+  - name: "centos-install"
+    worker: "{{.device_1}}"
+    volumes:
+      - /dev:/dev
+      - /statedir:/statedir
+    actions:
+      - name: "dump-cloud-init"
+        image: centos-install
+        command:
+          - sh
+          - -c
+          - |
+            # echo '{{.cloudInit}}' | base64 -d > /statedir/90_dpkg.cfg
+      - name: "stream-centos"
+        image: quay.io/tinkerbell-actions/image2disk:v1.0.0
+        timeout: 600
+        environment:
+          IMG_URL: http://192.168.1.2/CentOS-7-x86_64-GenericCloud-2003.raw
+          # change the dest disk as per your requirements
+          DEST_DISK: /dev/sda
+          COMPRESSED: false
+      - name: "write-cloud-init-config"
+        image: centos-install
+        command:
+          - sh
+          - -c
+          - |
+            set -eux
+            partprobe /dev/sda
+            mkdir -p /mnt/target
+            # locate the directory with max space inside sda 
+            # check the filesystem type of your disk
+            mount -t xfs /dev/sda1 /mnt/target
+            cp /statedir/90_dpkg.cfg /mnt/target/etc/cloud/cloud.cfg.d/
+            umount /mnt/target
